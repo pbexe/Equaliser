@@ -1,0 +1,43 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Loads a data file and returns a parsed list of unique words longer than 3}
+\PYG{c+cm}{ * characters with no capitals and no punctuation.}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @param path The path to the data file}
+\PYG{c+cm}{ * @param length The number of words that shall be fetched}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @return The parsed list of words}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @throws FileNotFoundException Thrown when the data file cannot be loaded}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * @see main}
+\PYG{c+cm}{ */}
+\PYG{k+kd}{public} \PYG{k+kd}{static} \PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{parseData}\PYG{o}{(}\PYG{n}{String} \PYG{n}{path}\PYG{o}{,} \PYG{k+kt}{int} \PYG{n}{length}\PYG{o}{)} \PYG{k+kd}{throws} \PYG{n}{FileNotFoundException}\PYG{o}{\PYGZob{}}
+    \PYG{c+c1}{// List to store the words in}
+    \PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{\PYGZgt{}} \PYG{n}{words} \PYG{o}{=} \PYG{k}{new} \PYG{n}{ArrayList}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{\PYGZgt{}();}
+    \PYG{k}{try} \PYG{o}{\PYGZob{}}
+        \PYG{c+c1}{// Open and read the file}
+        \PYG{n}{File} \PYG{n}{fileIn} \PYG{o}{=} \PYG{k}{new} \PYG{n}{File}\PYG{o}{(}\PYG{n}{path}\PYG{o}{);}
+        \PYG{n}{Scanner} \PYG{n}{in} \PYG{o}{=} \PYG{k}{new} \PYG{n}{Scanner}\PYG{o}{(}\PYG{n}{fileIn}\PYG{o}{);}
+
+        \PYG{c+c1}{// Iterate through the lines}
+        \PYG{k}{while} \PYG{o}{(}\PYG{n}{in}\PYG{o}{.}\PYG{n+na}{hasNext}\PYG{o}{())} \PYG{o}{\PYGZob{}}
+            \PYG{c+c1}{// Get a line of the text file with no punctuation or capital letters}
+            \PYG{n}{String} \PYG{n}{word} \PYG{o}{=} \PYG{n}{in}\PYG{o}{.}\PYG{n+na}{next}\PYG{o}{().}\PYG{n+na}{replaceAll}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}[\PYGZca{}a\PYGZhy{}zA\PYGZhy{}Z]\PYGZdq{}}\PYG{o}{,} \PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{o}{).}\PYG{n+na}{toLowerCase}\PYG{o}{();}
+            \PYG{c+c1}{// Add the word to the list if it isn\PYGZsq{}t already there and if it is longer than 3 characters}
+            \PYG{k}{if} \PYG{o}{(!}\PYG{n}{words}\PYG{o}{.}\PYG{n+na}{contains}\PYG{o}{(}\PYG{n}{word}\PYG{o}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{word}\PYG{o}{.}\PYG{n+na}{length}\PYG{o}{()} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{3}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+                \PYG{n}{words}\PYG{o}{.}\PYG{n+na}{add}\PYG{o}{(}\PYG{n}{word}\PYG{o}{);}
+            \PYG{o}{\PYGZcb{}}
+            \PYG{c+c1}{// Stop adding words when enough have been found}
+            \PYG{k}{if} \PYG{o}{(}\PYG{n}{words}\PYG{o}{.}\PYG{n+na}{size}\PYG{o}{()} \PYG{o}{\PYGZgt{}=} \PYG{n}{length}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+                \PYG{k}{break}\PYG{o}{;}
+            \PYG{o}{\PYGZcb{}}
+        \PYG{o}{\PYGZcb{}}
+        \PYG{c+c1}{// Finish up}
+        \PYG{n}{in}\PYG{o}{.}\PYG{n+na}{close}\PYG{o}{();}
+        \PYG{k}{return} \PYG{n}{words}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}} \PYG{k}{catch} \PYG{o}{(}\PYG{n}{FileNotFoundException} \PYG{n}{e}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{throw} \PYG{n}{e}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

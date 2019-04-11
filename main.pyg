@@ -1,0 +1,41 @@
+/**
+ * Loads a data file and returns a parsed list of unique words longer than 3
+ * characters with no capitals and no punctuation.
+ *
+ * @param path The path to the data file
+ * @param length The number of words that shall be fetched
+ *
+ * @return The parsed list of words
+ *
+ * @throws FileNotFoundException Thrown when the data file cannot be loaded
+ *
+ * @see main
+ */
+public static List<String> parseData(String path, int length) throws FileNotFoundException{
+    // List to store the words in
+    List<String> words = new ArrayList<String>();
+    try {
+        // Open and read the file
+        File fileIn = new File(path);
+        Scanner in = new Scanner(fileIn);
+
+        // Iterate through the lines
+        while (in.hasNext()) {
+            // Get a line of the text file with no punctuation or capital letters
+            String word = in.next().replaceAll("[^a-zA-Z]", "").toLowerCase();
+            // Add the word to the list if it isn't already there and if it is longer than 3 characters
+            if (!words.contains(word) && word.length() > 3) {
+                words.add(word);
+            }
+            // Stop adding words when enough have been found
+            if (words.size() >= length) {
+                break;
+            }
+        }
+        // Finish up
+        in.close();
+        return words;
+    } catch (FileNotFoundException e) {
+        throw e;
+    }
+}
